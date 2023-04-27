@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+// Fonts
+$fontPrimary: "Inter", sans-serif;
+
+// Colors
+$colorPrimary: #bf3939;
+$colorPrimaryDark: #8a2828;
+$colorSecondary: #ffffff;
+$colorBlack: #000000;
+$colorBgPrimary: #f8f9fa;
+$colorBgSecondary: #ffffff;
+$colorTextPrimary: #151e28;
+$colorTextSecondary: #6c757d;
+
+// Breakpoints
+$mobileLarge: ("min-width: 580px");
+$tablet: ("min-width: 768px");
+$desktop: ("min-width: 1024px");
+$desktopLarge: ("min-width: 1300px");

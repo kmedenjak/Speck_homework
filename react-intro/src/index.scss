@@ -1,0 +1,17 @@
+@use "./theme.scss" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $fontPrimary;
+  color: $colorTextPrimary;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
