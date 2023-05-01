@@ -40,6 +40,10 @@
       cursor: pointer;
     }
   }
+
+  &-Nav .active{
+    color: $colorPrimary;
+  }
   
   &-Nav {
     display: none;
@@ -52,7 +56,7 @@
   &-LogoImg path {
     fill: $colorPrimary;
   }
-  
+
   &-Link {
     margin-right: 32px;
     line-height: 80px;

@@ -1,6 +1,7 @@
 import "./Header.scss"
 import PropTypes from "prop-types"
 import Button from "../Button/ButtonNav";
+import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Header = ({navHome, navCourses, button}) => {
@@ -37,11 +38,11 @@ const Header = ({navHome, navCourses, button}) => {
             </svg>
 
             <nav className="Header-Nav">
-              <Link to="/" className="Header-Link">{navHome}</Link>
-              <Link to="/courses" className="Header-Link">{navCourses}</Link>
-              <Link to="/register">
+              <NavLink to="/" className="Header-Link">{navHome}</NavLink>
+              <NavLink to="/courses" className="Header-Link">{navCourses}</NavLink>
+              <NavLink to="/register">
                 <Button>{button}</Button>
-              </Link>
+              </NavLink>
             </nav>
           </div>
         </header>
