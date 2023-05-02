@@ -1,25 +1,29 @@
-import "./Section.scss"
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+import {
+  Section as SectionWrapper,
+  SectionInner,
+  Title,
+  Subtitle,
+} from "./SectionStyle.js";
+
 //PropTypes je pobjek koji na sebi ima tipove podataka
 
-const Section = ({title, subtitle, children}) => {
+const Section = ({ title, subtitle, children }) => {
   return (
-    <section className="Section">
-        <div className="Section-Inner">
-          <h2 className="Section-Title">{title}</h2>
-          <p className="Section-Subtitle">
-            {subtitle}
-          </p>
-        </div>
+    <SectionWrapper>
+      <SectionInner>
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
         {children}
-    </section>
-  )
-}
+      </SectionInner>
+    </SectionWrapper>
+  );
+};
 
 Section.propTypes = {
-    title: PropTypes.string, 
-    subtitle: PropTypes.string,
-    children: PropTypes.node
-}
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  children: PropTypes.node,
+};
 
-export default Section
+export default Section;

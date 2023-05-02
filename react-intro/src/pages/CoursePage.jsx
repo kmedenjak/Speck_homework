@@ -1,32 +1,37 @@
-import Section from '../components/Section/Section.jsx'
-import Single from '../components/Single/Single.jsx'
-import CourseImg from '../assets/images/lecture-1.jpg'
-
+import Section from "../components/Section/Section.jsx";
+import Single from "../components/Single/Single.jsx";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import coursesMock from "../utils/mock/courses.js";
 
 const CoursePage = () => {
-  return ( 
-  <>
-      <Section title="Introduction" subtitle=""> 
+  const { id } = useParams();
 
-        <Single img={CourseImg} 
-        alt="Introduction"
-        text="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        Illum quibusdam cum dolore quia omnis delectus odit deleniti 
-        expedita placeat quo! Consequuntur, maxime ipsa maiores sit 
-        nulla iusto quisquam minus accusamus!Lorem Lorem ipsum dolor 
-        sit amet, consectetur adipisicing elit. Expedita quisquam 
-        neque debitis qui accusantium possimus, cupiditate molestias 
-        nam suscipit eum laudantium. Cumque tempore itaque impedit 
-        molestias obcaecati ratione iusto officia. Lorem ipsum dolor 
-        sit amet consectetur adipisicing elit. Aspernatur aut sint 
-        exercitationem, itaque veniam quia corrupti voluptates 
-        facilis laborum sit iure modi et aliquid laudantium, natus 
-        velit. Saepe, eligendi reiciendis?">
-        </Single>
+  const [courses, setCourses] = useState(null);
+  const [course, setCourse] = useState(null);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setCourses(coursesMock);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    courses && setCourse(courses.find((course) => course.id === parseInt(id)));
+  }, [courses, id]);
+
+  return (
+    course && (
+      <Section title={course.title} subtitle={course.subtitle}>
+        <Single
+          img={course.imgSrc}
+          alt={course.imgAlt}
+          text={course.content}
+        ></Single>
       </Section>
-  </>
-  )
-}
+    )
+  );
+};
 
-export default CoursePage
+export default CoursePage;

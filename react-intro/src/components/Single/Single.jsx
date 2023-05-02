@@ -1,26 +1,26 @@
-import "./Single.scss"
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+import {
+  SingleCourse as SingleCourseWrapper,
+  SingleCourseFigure,
+  SingleCourseImg,
+  Content,
+} from "./SingleStyle.js";
 
-const Single = ({img, alt, text}) => {
+const Single = ({ img, alt, text }) => {
   return (
-    <article className="SingleCourse">
-        <figure className="SingleCourse-Figure">
-            <img 
-            className="SingleCourse-Img" src={img} alt={alt} 
-            />
-        </figure>
-
-        <p className="SingleSourse-Content">
-            {text}
-        </p>
-    </article>
-  )
+    <SingleCourseWrapper>
+      <SingleCourseFigure>
+        <SingleCourseImg src={img} alt={alt} />
+      </SingleCourseFigure>
+      <Content>{text}</Content>
+    </SingleCourseWrapper>
+  );
 };
 
 Single.propTypes = {
-    img: PropTypes.string,
-    alt: PropTypes.string,
-    text: PropTypes.string
-}
+  img: PropTypes.string,
+  alt: PropTypes.string,
+  text: PropTypes.string,
+};
 
-export default Single
+export default Single;

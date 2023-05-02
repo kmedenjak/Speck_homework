@@ -1,37 +1,45 @@
-import "./Hero.scss"
-import Button from "../Button/Button";
-import PropTypes from "prop-types"
+import { Buttons } from "../../utils/styles/generalStyles";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import {
+  Hero as HeroWrapper,
+  HeroFigure,
+  HeroImg,
+  Overlay,
+  Content,
+  ContentInner,
+  TextCard,
+  Title,
+  Subtitle,
+} from "./HeroStyle.js";
 
-const Hero = ({title, subtitle, button, heroImg, imgAlt}) => {
-    return (
-        <section className="Hero">
-        <figure className="Hero-Figure">
-          <img
-            src={heroImg} alt={imgAlt} className="Hero-Img"/>
-        </figure>
-        <div className="Hero-Overlay"></div>
-        <div className="Hero-Content">
-          <div className="Hero-ContentInner">
-            <div className="Hero-TextCard">
-              <h1 className="Hero-Title">{title}</h1>
-              <p className="Hero-Subtitle">{subtitle}</p>
-              <Link to="/courses">
-                <Button className="Button_secondary">{button}</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    )
+const Hero = ({ title, subtitle, heroImg, imgAlt }) => {
+  return (
+    <HeroWrapper>
+      <HeroFigure>
+        <HeroImg src={heroImg} alt={imgAlt} />
+      </HeroFigure>
+      <Overlay></Overlay>
+      <Content>
+        <ContentInner>
+          <TextCard>
+            <Title>{title}</Title>
+            <Subtitle>{subtitle}</Subtitle>
+            <Link to="/courses">
+              <Buttons>Explore courses</Buttons>
+            </Link>
+          </TextCard>
+        </ContentInner>
+      </Content>
+    </HeroWrapper>
+  );
 };
 
 Hero.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  button: PropTypes.string,
   heroImg: PropTypes.string,
-  imgAlt: PropTypes.string
-}
+  imgAlt: PropTypes.string,
+};
 
 export default Hero;
