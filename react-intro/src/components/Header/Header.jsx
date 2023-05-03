@@ -8,11 +8,15 @@ import {
   Hamburger,
   HeaderLink,
   HeaderNav,
+  HeaderLinkHamburger,
+  HeaderNavHamburger,
 } from "./HeaderStyle";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const Header = ({ navHome, navCourses }) => {
+const Header = ({ navHome, navCourses, navSignIn }) => {
   const navigate = useNavigate();
+  const [clickMenu, setClickMenu] = useState(false);
 
   return (
     <HeaderWrapper>
@@ -20,12 +24,41 @@ const Header = ({ navHome, navCourses }) => {
         <Link to="/">
           <Logo />
         </Link>
-        <Hamburger />
+
         <HeaderNav>
           <HeaderLink to={"/"}>{navHome}</HeaderLink>
           <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
           <Buttons onClick={() => navigate("/register")}>Register</Buttons>
         </HeaderNav>
+
+        <Hamburger onClick={() => setClickMenu(!clickMenu)} />
+        {clickMenu && (
+          <HeaderNavHamburger>
+            <HeaderLinkHamburger to={"/"} onClick={() => setClickMenu(false)}>
+              {navHome}
+            </HeaderLinkHamburger>
+            <HeaderLinkHamburger
+              to={"/courses"}
+              onClick={() => setClickMenu(false)}
+            >
+              {navCourses}
+            </HeaderLinkHamburger>
+            <HeaderLinkHamburger
+              to={"/signin"}
+              onClick={() => setClickMenu(false)}
+            >
+              {navSignIn}
+            </HeaderLinkHamburger>
+            <Buttons
+              onClick={() => {
+                navigate("/register");
+                setClickMenu(false);
+              }}
+            >
+              Register
+            </Buttons>
+          </HeaderNavHamburger>
+        )}
       </HeaderInner>
     </HeaderWrapper>
   );
@@ -34,6 +67,7 @@ const Header = ({ navHome, navCourses }) => {
 Header.propTypes = {
   navHome: PropTypes.string,
   navCourses: PropTypes.string,
+  navSignIn: PropTypes.string,
 };
 
 export default Header;

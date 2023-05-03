@@ -46,3 +46,4 @@ export const Time = styled.p`
   font-weight: 700;
   color: ${colors.primary};
 `;
+

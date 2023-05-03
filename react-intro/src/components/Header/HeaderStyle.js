@@ -34,6 +34,8 @@ export const Hamburger = styled(HamburgerIcon)`
   display: block;
   width: 32px;
   height: 32px;
+  position: absolute;
+  right: 5%;
 
   @media screen and (${breakpoints.desktop}) {
     display: none;
@@ -69,5 +71,40 @@ export const HeaderNav = styled.nav`
 
   @media screen and (${breakpoints.desktop}) {
     display: block;
+  }
+`;
+
+export const HeaderLinkHamburger = styled(NavLink)`
+  margin-right: 32px;
+  line-height: 80px;
+  transition: color 0.3s ease-out;
+
+  &.active {
+    color: ${colors.primary};
+  }
+
+  &.hover {
+    color: ${colors.primary};
+  }
+`;
+
+export const HeaderNavHamburger = styled.nav`
+  margin-right: 72px;
+  z-index: 1;
+
+  @media screen and (${breakpoints.tablet}) {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    text-align: center;
+  }
+
+  @media screen and (${breakpoints.desktop}) {
+    display: none;
   }
 `;
