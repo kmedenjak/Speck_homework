@@ -31,7 +31,12 @@ const Header = ({ navHome, navCourses, navSignIn }) => {
           <Buttons onClick={() => navigate("/register")}>Register</Buttons>
         </HeaderNav>
 
-        <Hamburger onClick={() => setClickMenu(!clickMenu)} />
+        {clickMenu ? (
+          <Hamburger onClick={() => setClickMenu(clickMenu)} />
+        ) : (
+          <Hamburger onClick={() => setClickMenu(!clickMenu)} />
+        )}
+
         {clickMenu && (
           <HeaderNavHamburger>
             <HeaderLinkHamburger to={"/"} onClick={() => setClickMenu(false)}>
@@ -49,14 +54,16 @@ const Header = ({ navHome, navCourses, navSignIn }) => {
             >
               {navSignIn}
             </HeaderLinkHamburger>
-            <Buttons
-              onClick={() => {
-                navigate("/register");
-                setClickMenu(false);
-              }}
-            >
-              Register
-            </Buttons>
+            <HeaderLinkHamburger>
+              <Buttons
+                onClick={() => {
+                  navigate("/register");
+                  setClickMenu(false);
+                }}
+              >
+                Register
+              </Buttons>
+            </HeaderLinkHamburger>
           </HeaderNavHamburger>
         )}
       </HeaderInner>

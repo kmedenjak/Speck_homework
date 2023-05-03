@@ -61,7 +61,7 @@ export const HeaderLink = styled(NavLink)`
     color: ${colors.primary};
   }
 
-  &.hover {
+  &:hover {
     color: ${colors.primary};
   }
 `;
@@ -83,16 +83,20 @@ export const HeaderLinkHamburger = styled(NavLink)`
     color: ${colors.primary};
   }
 
-  &.hover {
-    color: ${colors.primary};
+  &:hover {
+    background-color: ${colors.primary};
+    color: ${colors.bgPrimary};
   }
 `;
 
 export const HeaderNavHamburger = styled.nav`
   margin-right: 72px;
   z-index: 1;
+  border-top: 1px solid ${colors.textSecondary};
 
-  @media screen and (${breakpoints.tablet}) {
+  @media screen and (${breakpoints.tablet}),
+    (${breakpoints.tabletSmall}),
+    (${breakpoints.mobileLarge}) {
     display: flex;
     flex-direction: column;
     position: absolute;
