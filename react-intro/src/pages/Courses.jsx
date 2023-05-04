@@ -3,11 +3,7 @@ import { Grid } from "../utils/styles/generalStyles";
 import Course from "../components/Course/Course.jsx";
 import { useEffect, useState } from "react";
 import coursesMock from "../utils/mock/courses";
-import {
-  SearchInputs,
-  Input,
-  Search,
-} from "../components/Search/SearchStyle.js";
+import SearchBar from "../components/SearchBar/SearchBar.jsx";
 import { ThreeDots } from "react-loader-spinner";
 import { Loader } from "../components/Loader/Loader.js";
 
@@ -39,27 +35,20 @@ const Courses = () => {
         subtitle="We recommend that you choose one of the featured courses. If you don't find anything for
         you here, search for courses in detail on the courses page."
       >
-        <Search>
-          <SearchInputs>
-            {loader ? (
-              <Input
-                type="text"
-                onChange={handleSearch}
-                placeholder="Search..."
-                disabled={true}
-              ></Input>
-            ) : (
-              <Input
-                type="text"
-                onChange={handleSearch}
-                placeholder="Search..."
-                disabled={false}
-              ></Input>
-            )}
+        {loader ? (
+          <SearchBar
+            onValueChange={handleSearch}
+            placeholder="Search..."
+            disabled={true}
+          ></SearchBar>
+        ) : (
+          <SearchBar
+            onValueChange={handleSearch}
+            placeholder="Search..."
+            disabled={false}
+          ></SearchBar>
+        )}
 
-            <div className="searchIcon"></div>
-          </SearchInputs>
-        </Search>
         {loader ? (
           <Loader>
             <ThreeDots loader={loader} color="#bf3939" />

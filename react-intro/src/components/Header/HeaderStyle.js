@@ -78,6 +78,10 @@ export const HeaderLinkHamburger = styled(NavLink)`
   margin-right: 32px;
   line-height: 80px;
   transition: color 0.3s ease-out;
+  width: 100%;
+  right: 0;
+  left: 0;
+  top: 80px;
 
   &.active {
     color: ${colors.primary};
@@ -92,7 +96,6 @@ export const HeaderLinkHamburger = styled(NavLink)`
 export const HeaderNavHamburger = styled.nav`
   margin-right: 72px;
   z-index: 1;
-  border-top: 1px solid ${colors.textSecondary};
 
   @media screen and (${breakpoints.tablet}),
     (${breakpoints.tabletSmall}),

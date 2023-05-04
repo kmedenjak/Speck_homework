@@ -13,6 +13,7 @@ import {
 } from "./HeaderStyle";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { VscClose } from "react-icons/vsc";
 
 const Header = ({ navHome, navCourses, navSignIn }) => {
   const navigate = useNavigate();
@@ -28,13 +29,14 @@ const Header = ({ navHome, navCourses, navSignIn }) => {
         <HeaderNav>
           <HeaderLink to={"/"}>{navHome}</HeaderLink>
           <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
+          <HeaderLink to={"/signin"}>{navSignIn}</HeaderLink>
           <Buttons onClick={() => navigate("/register")}>Register</Buttons>
         </HeaderNav>
 
         {clickMenu ? (
-          <Hamburger onClick={() => setClickMenu(clickMenu)} />
+          <VscClose size="32px" onClick={() => setClickMenu(false)} />
         ) : (
-          <Hamburger onClick={() => setClickMenu(!clickMenu)} />
+          <Hamburger onClick={() => setClickMenu(true)} />
         )}
 
         {clickMenu && (
