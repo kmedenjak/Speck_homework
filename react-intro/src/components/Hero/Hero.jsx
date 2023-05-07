@@ -26,7 +26,7 @@ const Hero = ({ title, subtitle, heroImg, imgAlt }) => {
             <Title>{title}</Title>
             <Subtitle>{subtitle}</Subtitle>
             <Link to="/courses">
-              <Buttons>Explore courses</Buttons>
+              <Buttons isSecondary>Explore courses</Buttons>
             </Link>
           </TextCard>
         </ContentInner>
