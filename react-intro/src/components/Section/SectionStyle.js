@@ -3,6 +3,7 @@ import { breakpoints, colors } from "../../utils/styles/theme";
 
 export const Section = styled.section`
   background-color: ${colors.bgPrimary};
+  display: flex;
 `;
 
 export const SectionInner = styled.div`

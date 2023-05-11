@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
 
-const Header = ({ navHome, navCourses, navSignIn }) => {
+const Header = ({ navHome, navCourses, navSignIn, navProfile }) => {
   const navigate = useNavigate();
   const [clickMenu, setClickMenu] = useState(false);
 
@@ -29,6 +29,7 @@ const Header = ({ navHome, navCourses, navSignIn }) => {
         <HeaderNav>
           <HeaderLink to={"/"}>{navHome}</HeaderLink>
           <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
+          <HeaderLink to={"/profile"}>{navProfile}</HeaderLink>
           <Buttons onClick={() => navigate("/sign-in")} isOutline>Sign in</Buttons>
           <Buttons onClick={() => navigate("/register")}>Register</Buttons>
         </HeaderNav>
@@ -49,6 +50,12 @@ const Header = ({ navHome, navCourses, navSignIn }) => {
               onClick={() => setClickMenu(false)}
             >
               {navCourses}
+            </HeaderLinkHamburger>
+            <HeaderLinkHamburger
+              to={"/profile"}
+              onClick={() => setClickMenu(false)}
+            >
+              {navProfile}
             </HeaderLinkHamburger>
             <HeaderLinkHamburger
               to={"/sign-in"}
@@ -77,6 +84,7 @@ Header.propTypes = {
   navHome: PropTypes.string,
   navCourses: PropTypes.string,
   navSignIn: PropTypes.string,
+  navProfile: PropTypes.string
 };
 
 export default Header;

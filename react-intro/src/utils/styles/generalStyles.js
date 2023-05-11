@@ -24,6 +24,35 @@ export const Buttons = styled.button`
   `}
 
   ${(props) =>
+    props.isProfile &&
+    `
+    padding: 16px 20px;
+    position: absolute;
+    right: 5%;
+    top: 27%;
+    background-color: ${colors.secondary};
+    border: 1px solid ${colors.primary};
+    color: ${colors.primary};
+    
+    @media screen and (${breakpoints.tablet}) {
+      top: 20%;
+  }
+  `}
+
+${(props) =>
+    props.isProfile2 &&
+    `
+    padding: 16px 20px;
+    position: absolute;
+    right: 5%;
+    top: 27%;
+
+    @media screen and (${breakpoints.tablet}) {
+      top: 20%;
+  }
+  `}
+
+  ${(props) =>
     props.isOutline &&
     `
     background-color: ${colors.secondary};
@@ -35,6 +64,11 @@ export const Buttons = styled.button`
     background-color: ${colors.primaryDark};
     ${(props) =>
       props.isOutline &&
+      `
+    color: ${colors.secondary};
+  `}
+    ${(props) =>
+      props.isProfile &&
       `
     color: ${colors.secondary};
   `}
@@ -75,7 +109,7 @@ export const FormRow = styled.div`
 const FieldStlye = css`
   border: 1px solid ${colors.textSecondary};
   border-radius: 6px;
-  width: 100%;
+  width: 350px;
   line-height: 50px;
   height: 50px;
   padding: 0 12px;
@@ -96,13 +130,11 @@ export const Field = styled(FieldFormik)`
   ${FieldStlye};
 `;
 
-export const Select = styled.select `
+export const Select = styled.select`
   ${FieldStlye};
-`
+`;
 
-export const Option = styled.option`
-  
-`
+export const Option = styled.option``;
 
 export const ErrorMessage = styled(ErrorMessageFormik)`
   font-size: 14px;

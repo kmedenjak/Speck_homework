@@ -8,7 +8,7 @@ import {
 
 //PropTypes je pobjek koji na sebi ima tipove podataka
 
-const Section = ({ title, subtitle, children }) => {
+const Section = ({ title, subtitle, children}) => {
   return (
     <SectionWrapper>
       <SectionInner>

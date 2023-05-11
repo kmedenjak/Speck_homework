@@ -45,8 +45,7 @@ const Register = () => {
           activeFacultyYear: Yup.string().required("Faculty year is required"),
           isAdmin: false,
         })}
-        onSubmit={ (values, { setSubmitting, resetForm }) => {
-          
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
             const data = {
               first_name: values.firstName,

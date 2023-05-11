@@ -9,9 +9,9 @@ import {
   FormRow,
 } from "../../utils/styles/generalStyles";
 
-const Register = () => {
+const SignIn = () => {
   return (
-    <Section title="Register">
+    <Section title="Sign in">
       <Formik
         initialValues={{
           email: "",
@@ -78,4 +78,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignIn;
