@@ -67,10 +67,12 @@ const Profile = () => {
               "Faculty year is required"
             ),
           })}
-          onSubmit={({ setButtonClik }) => {
+          onSubmit={(data, {setSubmitting, resetForm} ) => {
             setTimeout(() => {
               alert(JSON.stringify(data, null, 2));
-              setButtonClik(false);
+              handleButtonClick();
+              setSubmitting(false);
+              resetForm();
             }, 1000);
           }}
         >
@@ -84,7 +86,7 @@ const Profile = () => {
                   onChange={handleDataInput}
                   type="text"
                   name="firstName"
-                  disabled={!buttonClick}
+                  disabled={!buttonClick || formik.isSubmitting}
                 />
                 <ErrorMessage
                   component={"div"}
@@ -99,7 +101,7 @@ const Profile = () => {
                   onChange={handleDataInput}
                   type="text"
                   name="lastName"
-                  disabled={!buttonClick}
+                  disabled={!buttonClick || formik.isSubmitting}
                 />
                 <ErrorMessage
                   component={"div"}
@@ -114,7 +116,7 @@ const Profile = () => {
                   onChange={handleDataInput}
                   type="email"
                   name="email"
-                  disabled={!buttonClick}
+                  disabled={!buttonClick || formik.isSubmitting}
                 />
                 <ErrorMessage
                   component={"div"}
@@ -129,7 +131,7 @@ const Profile = () => {
                   onChange={handleDataInput}
                   type="text"
                   name="githubUsername"
-                  disabled={!buttonClick}
+                  disabled={!buttonClick || formik.isSubmitting}
                 />
                 <ErrorMessage
                   component={"div"}
@@ -144,7 +146,7 @@ const Profile = () => {
                   onChange={handleDataInput}
                   type="text"
                   name="zeplinUsername"
-                  disabled={!buttonClick}
+                  disabled={!buttonClick || formik.isSubmitting}
                 />
                 <ErrorMessage
                   component={"div"}
@@ -157,20 +159,19 @@ const Profile = () => {
                 <Select
                   id=""
                   value={data.activeFacultyYear}
-                  onChange={handleDataInput}
                   name="activeFacultyYear"
                   {...formik.getFieldProps("activeFacultyYear")}
-                  disabled={!buttonClick}
+                  disabled={!buttonClick || formik.isSubmitting}
                 >
                   <Option value="" disabled hidden>
                     Choose an Active faculty year
                   </Option>
-                  <Option value="0">Not a student</Option>
-                  <Option value="1">1st faculty year</Option>
-                  <Option value="2">2nd faculty year</Option>
-                  <Option value="3">3rd faculty year</Option>
-                  <Option value="4">4th faculty year</Option>
-                  <Option value="5">5th faculty year</Option>
+                  <Option value="0" onChange={handleDataInput}>Not a student</Option>
+                  <Option value="1" onChange={handleDataInput}>1st faculty year</Option>
+                  <Option value="2" onChange={handleDataInput}>2nd faculty year</Option>
+                  <Option value="3" onChange={handleDataInput}>3rd faculty year</Option>
+                  <Option value="4" onChange={handleDataInput}>4th faculty year</Option>
+                  <Option value="5" onChange={handleDataInput}>5th faculty year</Option>
                 </Select>
                 <ErrorMessage
                   component={"div"}
@@ -180,7 +181,7 @@ const Profile = () => {
 
               {buttonClick && (
                 <FormRow>
-                  <Buttons isSecondary type="submit" disabled={!buttonClick}>
+                  <Buttons isSecondary type="submit" disabled={formik.isSubmitting}>
                     {formik.isSubmitting ? "Processing..." : "Update user data"}
                   </Buttons>
                 </FormRow>
