@@ -9,17 +9,32 @@ import {
   Select,
 } from "../../utils/styles/generalStyles";
 import { Buttons } from "../../utils/styles/generalStyles";
-import { Title, Form, Labels, SectionPass } from "./Profile.js";
+import { Title, Form, Labels, SectionPass, PassForm } from "./Profile.js";
 import { useState } from "react";
 import Password from "../../components/Password/Password";
 
 const Profile = () => {
   const [buttonClick, setButtonClik] = useState(false);
 
+  const handleDataInput = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
   function handleButtonClick() {
     setButtonClik(!buttonClick);
   }
 
+  const initialValues = {
+    firstName: "Karla",
+    lastName: "Medenjak",
+    email: "karla.medenjak2@gmail.com",
+    githubUsername: "kmedenjak",
+    zeplinUsername: "kmedenjak",
+    activeFacultyYear: "5th faculty year",
+  };
+
+  const [data, setData] = useState(initialValues);
   return (
     <Section>
       <Title>Profile</Title>
@@ -35,34 +50,13 @@ const Profile = () => {
 
       <SectionPass>
         <Formik
-          initialValues={{
-            firstName: "Karla",
-            lastName: "Medenjak",
-            email: "karla.medenjak2@gmail.com",
-            password: "12341234",
-            passwordRepeat: "12341234",
-            githubUsername: "kmedenjak",
-            zeplinUsername: "kmedenjak",
-            activeFacultyYear: "5th faculty year",
-          }}
+          initialValues={initialValues}
           validationSchema={Yup.object({
             firstName: Yup.string().required("First name is required"), //reqired jer je obavezno
             lastName: Yup.string().required("Last name is required"),
             email: Yup.string()
               .email("Invalid email adress")
               .required("Email is required"),
-            password: Yup.string()
-              .min(8, "Password must be at least 8 characters long")
-              .required("Password is required"), //formik ne prihvaća arrow funkcije pa koristimo function
-            passwordRepeat: Yup.string()
-              .test(
-                "passwords-match",
-                "Passwords must match",
-                function (value) {
-                  return this.parent.password === value;
-                }
-              )
-              .required(""),
             githubUsername: Yup.string().required(
               "Github username is required"
             ),
@@ -73,13 +67,25 @@ const Profile = () => {
               "Faculty year is required"
             ),
           })}
+          onSubmit={({ setButtonClik }) => {
+            setTimeout(() => {
+              alert(JSON.stringify(data, null, 2));
+              setButtonClik(false);
+            }, 1000);
+          }}
         >
           {(formik) => (
             //tu slažemo svoju formu, name mora biti isti ko i kod initialValues
             <Form>
               {buttonClick && <Labels>First name</Labels>}
               <FormRow>
-                <Field type="text" name="firstName" disabled={!buttonClick} />
+                <Field
+                  value={data.firstName}
+                  onChange={handleDataInput}
+                  type="text"
+                  name="firstName"
+                  disabled={!buttonClick}
+                />
                 <ErrorMessage
                   component={"div"}
                   /*component moramo eksplicitno definirat*/ name="firstName"
@@ -88,7 +94,13 @@ const Profile = () => {
 
               {buttonClick && <Labels>Last name</Labels>}
               <FormRow>
-                <Field type="text" name="lastName" disabled={!buttonClick} />
+                <Field
+                  value={data.lastName}
+                  onChange={handleDataInput}
+                  type="text"
+                  name="lastName"
+                  disabled={!buttonClick}
+                />
                 <ErrorMessage
                   component={"div"}
                   /*component moramo eksplicitno definirat*/ name="lastName"
@@ -97,7 +109,13 @@ const Profile = () => {
 
               {buttonClick && <Labels>Email</Labels>}
               <FormRow>
-                <Field type="email" name="email" disabled={!buttonClick} />
+                <Field
+                  value={data.email}
+                  onChange={handleDataInput}
+                  type="email"
+                  name="email"
+                  disabled={!buttonClick}
+                />
                 <ErrorMessage
                   component={"div"}
                   /*component moramo eksplicitno definirat*/ name="email"
@@ -107,6 +125,8 @@ const Profile = () => {
               {buttonClick && <Labels>Github</Labels>}
               <FormRow>
                 <Field
+                  value={data.githubUsername}
+                  onChange={handleDataInput}
                   type="text"
                   name="githubUsername"
                   disabled={!buttonClick}
@@ -120,6 +140,8 @@ const Profile = () => {
               {buttonClick && <Labels>Zepelin</Labels>}
               <FormRow>
                 <Field
+                  value={data.zeplinUsername}
+                  onChange={handleDataInput}
                   type="text"
                   name="zeplinUsername"
                   disabled={!buttonClick}
@@ -134,6 +156,8 @@ const Profile = () => {
               <FormRow>
                 <Select
                   id=""
+                  value={data.activeFacultyYear}
+                  onChange={handleDataInput}
                   name="activeFacultyYear"
                   {...formik.getFieldProps("activeFacultyYear")}
                   disabled={!buttonClick}
@@ -154,13 +178,13 @@ const Profile = () => {
                 />
               </FormRow>
 
-              <FormRow>
-                {buttonClick && (
+              {buttonClick && (
+                <FormRow>
                   <Buttons isSecondary type="submit" disabled={!buttonClick}>
                     {formik.isSubmitting ? "Processing..." : "Update user data"}
                   </Buttons>
-                )}
-              </FormRow>
+                </FormRow>
+              )}
             </Form>
           )}
         </Formik>
@@ -181,8 +205,7 @@ const Profile = () => {
                 passwordRepeat: "",
               }}
               validationSchema={Yup.object({
-                oldPassword: Yup.string()
-                  .required("Password is required"), //formik ne prihvaća arrow funkcije pa koristimo function
+                oldPassword: Yup.string().required("Password is required"), //formik ne prihvaća arrow funkcije pa koristimo function
                 newPassword: Yup.string()
                   .min(8, "Password must be at least 8 characters long")
                   .required("Password is required"), //formik ne prihvaća arrow funkcije pa koristimo function
@@ -207,7 +230,7 @@ const Profile = () => {
               {(formik) => (
                 //tu slažemo svoju formu, name mora biti isti ko i kod initialValues
 
-                <Form isPassword>
+                <PassForm>
                   <FormRow>
                     <Field
                       type="password"
@@ -258,7 +281,7 @@ const Profile = () => {
                         : "Update password"}
                     </Buttons>
                   </FormRow>
-                </Form>
+                </PassForm>
               )}
             </Formik>
           </Password>

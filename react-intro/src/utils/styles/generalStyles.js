@@ -28,7 +28,7 @@ export const Buttons = styled.button`
     `
     padding: 16px 20px;
     position: absolute;
-    right: 5%;
+    right: 20%;
     top: 27%;
     background-color: ${colors.secondary};
     border: 1px solid ${colors.primary};
@@ -44,7 +44,7 @@ ${(props) =>
     `
     padding: 16px 20px;
     position: absolute;
-    right: 5%;
+    right: 20%;
     top: 27%;
 
     @media screen and (${breakpoints.tablet}) {

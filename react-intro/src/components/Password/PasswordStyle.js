@@ -54,3 +54,5 @@ export const PassSubtitle = styled.p`
   font-size: 16px;
   margin-bottom: 48px;
 `;
+
+
