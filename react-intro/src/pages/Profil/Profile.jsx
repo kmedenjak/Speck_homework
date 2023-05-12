@@ -159,19 +159,17 @@ const Profile = () => {
                 <Select
                   id=""
                   value={data.activeFacultyYear}
+                  onChange={handleDataInput}
                   name="activeFacultyYear"
-                  {...formik.getFieldProps("activeFacultyYear")}
+                  
                   disabled={!buttonClick || formik.isSubmitting}
                 >
-                  <Option value="" disabled hidden>
-                    Choose an Active faculty year
-                  </Option>
-                  <Option value="0" onChange={handleDataInput}>Not a student</Option>
-                  <Option value="1" onChange={handleDataInput}>1st faculty year</Option>
-                  <Option value="2" onChange={handleDataInput}>2nd faculty year</Option>
-                  <Option value="3" onChange={handleDataInput}>3rd faculty year</Option>
-                  <Option value="4" onChange={handleDataInput}>4th faculty year</Option>
-                  <Option value="5" onChange={handleDataInput}>5th faculty year</Option>
+                  <Option value="0">Not a student</Option>
+                  <Option value="1">1st faculty year</Option>
+                  <Option value="2">2nd faculty year</Option>
+                  <Option value="3">3rd faculty year</Option>
+                  <Option value="4">4th faculty year</Option>
+                  <Option value="5">5th faculty year</Option>
                 </Select>
                 <ErrorMessage
                   component={"div"}
@@ -220,9 +218,10 @@ const Profile = () => {
                   )
                   .required(""),
               })}
-              onSubmit={({ setSubmitting, resetForm }) => {
+              onSubmit={(values, { setSubmitting, resetForm }) => {
                 setTimeout(() => {
-                  alert("Password is changed");
+                  alert("Password is changed", values);
+                  handleButtonClick();
                   setSubmitting(false);
                   resetForm(); //podešavanje na default vrijednosti
                 }, 1000);
@@ -273,7 +272,7 @@ const Profile = () => {
 
                   <FormRow>
                     <Buttons
-                      isSecondary
+                      isSecondaryProfil
                       type="submit"
                       disabled={formik.isSubmitting}
                     >

@@ -5,6 +5,8 @@ export const PassBackground = styled.section`
   display: flex;
   margin-top: 40px;
   min-width: 400px;
+  border: 1px solid red;
+  border-radius: 25px !important;
 `;
 
 export const PassBackgroundInner = styled.div`

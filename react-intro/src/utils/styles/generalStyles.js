@@ -23,6 +23,13 @@ export const Buttons = styled.button`
     padding: 16px 20px;
   `}
 
+${(props) =>
+    props.isSecondaryProfil &&
+    `
+    margin-left: 0;
+    padding: 16px 20px;
+  `}
+
   ${(props) =>
     props.isProfile &&
     `
