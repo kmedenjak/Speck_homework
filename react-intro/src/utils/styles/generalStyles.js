@@ -43,6 +43,7 @@ ${(props) =>
     
     @media screen and (${breakpoints.tablet}) {
       top: 20%;
+      right: 5%;
   }
   `}
 
@@ -56,6 +57,7 @@ ${(props) =>
 
     @media screen and (${breakpoints.tablet}) {
       top: 20%;
+      right: 5%;
   }
   `}
 

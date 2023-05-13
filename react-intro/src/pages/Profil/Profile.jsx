@@ -69,7 +69,6 @@ const Profile = () => {
           })}
           onSubmit={(data, {setSubmitting, resetForm} ) => {
             setTimeout(() => {
-              alert(JSON.stringify(data, null, 2));
               handleButtonClick();
               setSubmitting(false);
               resetForm();

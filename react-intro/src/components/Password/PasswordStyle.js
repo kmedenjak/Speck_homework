@@ -11,6 +11,8 @@ export const PassBackgroundInner = styled.div`
   padding: 20px 0;
   background-color: ${colors.bgSecondary};
   min-width: 400px;
+  border: 1px solid ${colors.bgSecondary};;
+  border-radius: 15px;
 
   @media screen and (${breakpoints.tablet}) {
     padding: 20px 0;
