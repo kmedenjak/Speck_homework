@@ -67,8 +67,9 @@ const Profile = () => {
               "Faculty year is required"
             ),
           })}
-          onSubmit={(data, {setSubmitting, resetForm} ) => {
+          onSubmit={(value, {setSubmitting, resetForm} ) => {
             setTimeout(() => {
+              alert(JSON.stringify(data, null, 2));
               handleButtonClick();
               setSubmitting(false);
               resetForm();

@@ -7,11 +7,16 @@ import {
   Field,
   Form,
   FormRow,
+  FormSuccessMessage,
   Option,
   Select,
 } from "../../utils/styles/generalStyles";
+import { useState } from "react";
+import { registerUser } from "../../api/users.js";
 
 const Register = () => {
+  const [successMessage, setSuccessMessage] = useState(null);
+
   return (
     <Section title="Register">
       <Formik
@@ -46,29 +51,52 @@ const Register = () => {
           isAdmin: false,
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          setTimeout(() => {
-            const data = {
-              first_name: values.firstName,
-              last_name: values.lastName,
-              email: values.email,
-              password: values.password,
-              github_username: values.githubUsername,
-              zeplin_username: values.zeplinUsername,
-              active_faculty_year:
-                parseInt(values.activeFacultyYear) === 0
-                  ? null
-                  : parseInt(values.activeFacultyYear),
-              is_admin: false,
-            };
-            alert(JSON.stringify(data, null, 2));
-            setSubmitting(false);
-            resetForm(); //podešavanje na default vrijednosti
-          }, 1000);
+          const data = {
+            first_name: values.firstName,
+            last_name: values.lastName,
+            email: values.email,
+            password: values.password,
+            github_username: values.githubUsername,
+            zeplin_username: values.zeplinUsername,
+            active_faculty_year:
+              parseInt(values.activeFacultyYear) === 0
+                ? null
+                : parseInt(values.activeFacultyYear),
+            is_admin: false,
+          };
+
+          registerUser(data)
+            .then((res) => {
+              resetForm(); //podešavanje na default vrijednosti
+              setSuccessMessage({
+                error: false,
+                message: "User is registered successfully",
+              });
+              setTimeout(() => {
+                setSuccessMessage(null);
+              }, 2000)
+            })
+            .catch((res) => {
+              setSuccessMessage({
+                error: true,
+                message: "There was an error...",
+              });
+            })
+            .finally(() => {
+              setSubmitting(false);
+            });
         }}
       >
         {(formik) => (
           //tu slažemo svoju formu, name mora biti isti ko i kod initialValues
           <Form>
+            {successMessage && (
+              <FormRow>
+                <FormSuccessMessage isError={successMessage.error}>
+                  {successMessage.message}
+                </FormSuccessMessage>
+              </FormRow>
+            )}
             <FormRow>
               <Field
                 type="text"

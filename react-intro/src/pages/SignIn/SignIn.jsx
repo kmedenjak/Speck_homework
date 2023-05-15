@@ -7,9 +7,13 @@ import {
   Field,
   Form,
   FormRow,
+  FormSuccessMessage,
 } from "../../utils/styles/generalStyles";
+import { getUser, loginUser } from "../../api/users";
+import { useState } from "react";
 
 const SignIn = () => {
+  const [successMessage, setSuccessMessage] = useState(null);
   return (
     <Section title="Sign in">
       <Formik
@@ -25,21 +29,41 @@ const SignIn = () => {
             .min(8, "Password must be at least 8 characters long")
             .required("Password is required"), //formik ne prihvaća arrow funkcije pa koristimo function
         })}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setTimeout(() => {
-            const data = {
-              email: values.email,
-              password: values.password,
-            };
-            alert(JSON.stringify(data, null, 2));
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          try {
+            const response = await loginUser(values);
+            const users = await getUser(response.access_token);
+            const user = users.data.find((user) => user.email == values.email);
+            setSuccessMessage({
+              error: false,
+              message: "User " + user.first_name + " " + user.last_name + " is loged in successfully",
+            });
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 2000);
+            localStorage.setItem('jwt_token', response.access_token);
+            
+            resetForm();
+          } catch (err) {
+            setSuccessMessage({
+              error: true,
+              message: "There was an error...",
+            });
+          } finally {
             setSubmitting(false);
-            resetForm(); //podešavanje na default vrijednosti
-          }, 1000);
+          }
         }}
       >
         {(formik) => (
           //tu slažemo svoju formu, name mora biti isti ko i kod initialValues
           <Form>
+             {successMessage && (
+              <FormRow>
+                <FormSuccessMessage isError={successMessage.error}>
+                  {successMessage.message}
+                </FormSuccessMessage>
+              </FormRow>
+            )}
             <FormRow>
               <Field
                 type="email"
