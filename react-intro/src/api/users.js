@@ -31,7 +31,7 @@ export const loginUser = (user) => {
 };
 
 export const getUser = (jwt) => {
-  return fetch(`${apiOrigin}/api/users?size=158`, {
+  return fetch(`${apiOrigin}/api/users?size=176`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${jwt}`,

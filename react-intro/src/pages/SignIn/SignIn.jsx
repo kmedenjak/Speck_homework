@@ -11,8 +11,9 @@ import {
 } from "../../utils/styles/generalStyles";
 import { getUser, loginUser } from "../../api/users";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const SignIn = () => {
+const SignIn = ( {setIsAdmin, setIsLogedIn }) => {
   const [successMessage, setSuccessMessage] = useState(null);
   return (
     <Section title="Sign in">
@@ -41,8 +42,10 @@ const SignIn = () => {
             setTimeout(() => {
               setSuccessMessage(null);
             }, 2000);
-            localStorage.setItem('jwt_token', response.access_token);
-            
+            setIsAdmin(user.is_admin);
+            setIsLogedIn(response.access_token);
+            localStorage.setItem('admin', user.is_admin);
+            localStorage.setItem('logged', response.access_token);
             resetForm();
           } catch (err) {
             setSuccessMessage({
@@ -100,6 +103,11 @@ const SignIn = () => {
       </Formik>
     </Section>
   );
+};
+
+SignIn.propTypes = {
+  setIsAdmin: PropTypes.func,
+  setIsLogedIn: PropTypes.func
 };
 
 export default SignIn;

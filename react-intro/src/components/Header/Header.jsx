@@ -15,9 +15,29 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
 
-const Header = ({ navHome, navCourses, navSignIn, navProfile }) => {
+const Header = ({
+  navHome,
+  navCourses,
+  navSignIn,
+  navProfile,
+  isAdmin,
+  isLogedIn,
+  setIsAdmin,
+  setIsLogedIn,
+}) => {
   const navigate = useNavigate();
   const [clickMenu, setClickMenu] = useState(false);
+
+  console.log(isAdmin);
+  console.log(isLogedIn);
+
+  function LogOut() {
+    setIsAdmin(false);
+    setIsLogedIn(false);
+    localStorage.removeItem("admin");
+    localStorage.removeItem("logged");
+    setClickMenu(false);
+  }
 
   return (
     <HeaderWrapper>
@@ -26,13 +46,58 @@ const Header = ({ navHome, navCourses, navSignIn, navProfile }) => {
           <Logo />
         </Link>
 
-        <HeaderNav>
-          <HeaderLink to={"/"}>{navHome}</HeaderLink>
-          <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
-          <HeaderLink to={"/profile"}>{navProfile}</HeaderLink>
-          <Buttons onClick={() => navigate("/sign-in")} isOutline>Sign in</Buttons>
-          <Buttons onClick={() => navigate("/register")}>Register</Buttons>
-        </HeaderNav>
+        {(() => {
+          if (isLogedIn) {
+            if (isAdmin) {
+              return (
+                <HeaderNav>
+                  <HeaderLink to={"/"}>{navHome}</HeaderLink>
+                  <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
+                  <HeaderLink to={"/profile"}>{navProfile}</HeaderLink>
+
+                  {isLogedIn ? (
+                    <HeaderLink onClick={LogOut} to={"/"}>
+                      Log Out
+                    </HeaderLink>
+                  ) : (
+                    <HeaderLink to={"sign-in"}>Sign In</HeaderLink>
+                  )}
+                </HeaderNav>
+              );
+            } else {
+              return (
+                <HeaderNav>
+                  <HeaderLink to={"/"}>{navHome}</HeaderLink>
+                  <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
+                  {isLogedIn ? (
+                    <HeaderLink onClick={LogOut} to={"/"}>
+                      Log Out
+                    </HeaderLink>
+                  ) : (
+                    <HeaderLink to={"sign-in"}>Sign In</HeaderLink>
+                  )}
+                </HeaderNav>
+              );
+            }
+          } else {
+            return (
+              <HeaderNav>
+                <HeaderLink to={"/"}>{navHome}</HeaderLink>
+                <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
+                <HeaderLink to={"/sign-in"}>{navSignIn}</HeaderLink>
+                <HeaderLink>
+                  <Buttons
+                    onClick={() => {
+                      navigate("/register");
+                    }}
+                  >
+                    Register
+                  </Buttons>
+                </HeaderLink>
+              </HeaderNav>
+            );
+          }
+        })()}
 
         {clickMenu ? (
           <VscClose size="32px" onClick={() => setClickMenu(false)} />
@@ -40,41 +105,112 @@ const Header = ({ navHome, navCourses, navSignIn, navProfile }) => {
           <Hamburger onClick={() => setClickMenu(true)} />
         )}
 
-        {clickMenu && (
-          <HeaderNavHamburger>
-            <HeaderLinkHamburger to={"/"} onClick={() => setClickMenu(false)}>
-              {navHome}
-            </HeaderLinkHamburger>
-            <HeaderLinkHamburger
-              to={"/courses"}
-              onClick={() => setClickMenu(false)}
-            >
-              {navCourses}
-            </HeaderLinkHamburger>
-            <HeaderLinkHamburger
-              to={"/profile"}
-              onClick={() => setClickMenu(false)}
-            >
-              {navProfile}
-            </HeaderLinkHamburger>
-            <HeaderLinkHamburger
-              to={"/sign-in"}
-              onClick={() => setClickMenu(false)}
-            >
-              {navSignIn}
-            </HeaderLinkHamburger>
-            <HeaderLinkHamburger>
-              <Buttons
-                onClick={() => {
-                  navigate("/register");
-                  setClickMenu(false);
-                }}
-              >
-                Register
-              </Buttons>
-            </HeaderLinkHamburger>
-          </HeaderNavHamburger>
-        )}
+        {clickMenu &&
+          (() => {
+            if (isLogedIn) {
+              if (isAdmin) {
+                return (
+                  <HeaderNavHamburger>
+                    <HeaderLinkHamburger
+                      to={"/"}
+                      onClick={() => setClickMenu(false)}
+                    >
+                      {navHome}
+                    </HeaderLinkHamburger>
+                    <HeaderLinkHamburger
+                      to={"/courses"}
+                      onClick={() => setClickMenu(false)}
+                    >
+                      {navCourses}
+                    </HeaderLinkHamburger>
+
+                    <HeaderLinkHamburger
+                      to={"/profile"}
+                      onClick={() => setClickMenu(false)}
+                    >
+                      {navProfile}
+                    </HeaderLinkHamburger>
+
+                    {isLogedIn ? (
+                      <HeaderLinkHamburger onClick={LogOut} to={"/"}>
+                        Log Out
+                      </HeaderLinkHamburger>
+                    ) : (
+                      <HeaderLinkHamburger
+                        to={"sign-in"}
+                        onClick={() => setClickMenu(false)}
+                      >
+                        Sign In
+                      </HeaderLinkHamburger>
+                    )}
+                  </HeaderNavHamburger>
+                );
+              } else {
+                return (
+                  <HeaderNavHamburger>
+                    <HeaderLinkHamburger
+                      to={"/"}
+                      onClick={() => setClickMenu(false)}
+                    >
+                      {navHome}
+                    </HeaderLinkHamburger>
+                    <HeaderLinkHamburger
+                      to={"/courses"}
+                      onClick={() => setClickMenu(false)}
+                    >
+                      {navCourses}
+                    </HeaderLinkHamburger>
+                    {isLogedIn ? (
+                      <HeaderLinkHamburger onClick={LogOut} to={"/"}>
+                        Log Out
+                      </HeaderLinkHamburger>
+                    ) : (
+                      <HeaderLinkHamburger
+                        to={"sign-in"}
+                        onClick={() => setClickMenu(false)}
+                      >
+                        Sign In
+                      </HeaderLinkHamburger>
+                    )}
+                  </HeaderNavHamburger>
+                );
+              }
+            } else {
+              return (
+                <HeaderNavHamburger>
+                  <HeaderLinkHamburger
+                    to={"/"}
+                    onClick={() => setClickMenu(false)}
+                  >
+                    {navHome}
+                  </HeaderLinkHamburger>
+                  <HeaderLinkHamburger
+                    to={"/courses"}
+                    onClick={() => setClickMenu(false)}
+                  >
+                    {navCourses}
+                  </HeaderLinkHamburger>
+
+                  <HeaderLinkHamburger
+                    to={"/sign-in"}
+                    onClick={() => setClickMenu(false)}
+                  >
+                    {navSignIn}
+                  </HeaderLinkHamburger>
+                  <HeaderLinkHamburger>
+                    <Buttons
+                      onClick={() => {
+                        navigate("/register");
+                        setClickMenu(false);
+                      }}
+                    >
+                      Register
+                    </Buttons>
+                  </HeaderLinkHamburger>
+                </HeaderNavHamburger>
+              );
+            }
+          })()}
       </HeaderInner>
     </HeaderWrapper>
   );
@@ -84,7 +220,11 @@ Header.propTypes = {
   navHome: PropTypes.string,
   navCourses: PropTypes.string,
   navSignIn: PropTypes.string,
-  navProfile: PropTypes.string
+  navProfile: PropTypes.string,
+  setIsAdmin: PropTypes.func,
+  setIsLogedIn: PropTypes.func,
+  isAdmin: PropTypes.bool,
+  isLogedIn: PropTypes.bool,
 };
 
 export default Header;

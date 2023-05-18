@@ -6,7 +6,7 @@ import Register from "./pages/Register/Register.jsx"
 import SignIn from "./pages/SignIn/SignIn.jsx"
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profil/Profile.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const { path } = useLocation();
@@ -14,6 +14,14 @@ const App = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [path]);
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(localStorage.getItem('admin'));
+    setIsLogedIn(localStorage.getItem('logged'));
+  }, []);
 
   return (
     <>
@@ -23,6 +31,10 @@ const App = () => {
         navSignIn="Sign in"
         navProfile="Profile"
         button="Register"
+        isAdmin={isAdmin}
+        isLogedIn={isLogedIn}
+        setIsAdmin={setIsAdmin}
+        setIsLogedIn={setIsLogedIn}
       />
 
       <main>
@@ -30,8 +42,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/courses/" element={<Courses />} />
           <Route path="/course/:id" element={<CoursePage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/sign-in" element={<SignIn />}/>
+          <Route path="/profile" element={<Profile isAdmin={isAdmin} />} />
+          <Route path="/sign-in" element={<SignIn setIsLogedIn={setIsLogedIn} setIsAdmin={setIsAdmin}/>}/>
           <Route path="/register" element={<Register />}/>
         </Routes>
       </main>
