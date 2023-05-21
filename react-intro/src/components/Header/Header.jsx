@@ -28,9 +28,6 @@ const Header = ({
   const navigate = useNavigate();
   const [clickMenu, setClickMenu] = useState(false);
 
-  console.log(isAdmin);
-  console.log(isLogedIn);
-
   function LogOut() {
     setIsAdmin(false);
     setIsLogedIn(false);
@@ -74,7 +71,7 @@ const Header = ({
                       Log Out
                     </HeaderLink>
                   ) : (
-                    <HeaderLink to={"sign-in"}>Sign In</HeaderLink>
+                    <HeaderLink to={"/sign-in"}>Sign In</HeaderLink>
                   )}
                 </HeaderNav>
               );
@@ -85,15 +82,9 @@ const Header = ({
                 <HeaderLink to={"/"}>{navHome}</HeaderLink>
                 <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
                 <HeaderLink to={"/sign-in"}>{navSignIn}</HeaderLink>
-                <HeaderLink>
-                  <Buttons
-                    onClick={() => {
-                      navigate("/register");
-                    }}
-                  >
-                    Register
-                  </Buttons>
-                </HeaderLink>
+                <Buttons onClick={() => navigate("/register")}>
+                  Register
+                </Buttons>
               </HeaderNav>
             );
           }
@@ -197,7 +188,6 @@ const Header = ({
                   >
                     {navSignIn}
                   </HeaderLinkHamburger>
-                  <HeaderLinkHamburger>
                     <Buttons
                       onClick={() => {
                         navigate("/register");
@@ -206,7 +196,6 @@ const Header = ({
                     >
                       Register
                     </Buttons>
-                  </HeaderLinkHamburger>
                 </HeaderNavHamburger>
               );
             }
