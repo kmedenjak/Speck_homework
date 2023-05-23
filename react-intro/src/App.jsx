@@ -17,7 +17,7 @@ const App = () => {
   }, [path]);
 
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isLogedIn, setIsLogedIn] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState("false");
 
   useEffect(() => {
     setIsAdmin(localStorage.getItem("admin"));
@@ -46,7 +46,7 @@ const App = () => {
           <Route
             path="/profile"
             element={
-              <PrivateRoute isAdmin={isAdmin} >
+              <PrivateRoute isAdmin={isAdmin}>
                 {console.log(isAdmin)}
                 <Profile />
               </PrivateRoute>

@@ -1,15 +1,17 @@
 import { Navigate } from 'react-router-dom';
 import PropTypes from "prop-types";
 
+function PrivateRoute({ children, isAdmin}) {
 
-function PrivateRoute({ children, isAdmin }) {
-    
-    if (isAdmin === false) {
-        return <Navigate to="/" />
-    }
     console.log(isAdmin);
 
+    if (isAdmin == "false") {
+        console.log(isAdmin);
+        return <Navigate to="/" replace/>
+    }
+
     return children;
+
 }
 
 PrivateRoute.propTypes = {

@@ -30,11 +30,13 @@ const Header = ({
 
   function LogOut() {
     setIsAdmin(false);
-    setIsLogedIn(false);
+    setIsLogedIn("false");
     localStorage.removeItem("admin");
     localStorage.removeItem("logged");
     setClickMenu(false);
   }
+
+  
 
   return (
     <HeaderWrapper>
@@ -44,7 +46,7 @@ const Header = ({
         </Link>
 
         {(() => {
-          if (isLogedIn) {
+          if (isLogedIn !== "false") {
             if (isAdmin) {
               return (
                 <HeaderNav>
@@ -52,7 +54,7 @@ const Header = ({
                   <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
                   <HeaderLink to={"/profile"}>{navProfile}</HeaderLink>
 
-                  {isLogedIn ? (
+                  {isLogedIn !== "false" ? (
                     <HeaderLink onClick={LogOut} to={"/"}>
                       Log Out
                     </HeaderLink>
@@ -66,7 +68,7 @@ const Header = ({
                 <HeaderNav>
                   <HeaderLink to={"/"}>{navHome}</HeaderLink>
                   <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
-                  {isLogedIn ? (
+                  {isLogedIn !== "false" ? (
                     <HeaderLink onClick={LogOut} to={"/"}>
                       Log Out
                     </HeaderLink>
@@ -98,7 +100,7 @@ const Header = ({
 
         {clickMenu &&
           (() => {
-            if (isLogedIn) {
+            if (isLogedIn !== "false") {
               if (isAdmin) {
                 return (
                   <HeaderNavHamburger>
@@ -122,7 +124,7 @@ const Header = ({
                       {navProfile}
                     </HeaderLinkHamburger>
 
-                    {isLogedIn ? (
+                    {(isLogedIn) ? (
                       <HeaderLinkHamburger onClick={LogOut} to={"/"}>
                         Log Out
                       </HeaderLinkHamburger>
@@ -213,7 +215,7 @@ Header.propTypes = {
   setIsAdmin: PropTypes.func,
   setIsLogedIn: PropTypes.func,
   isAdmin: PropTypes.bool,
-  isLogedIn: PropTypes.bool,
+  isLogedIn: PropTypes.string,
 };
 
 export default Header;
