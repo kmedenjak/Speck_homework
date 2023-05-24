@@ -7,22 +7,28 @@ import SignIn from "./pages/SignIn/SignIn.jsx";
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profil/Profile.jsx";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect} from "react";
+import { AuthContext } from "./context/AuthContext.jsx";
 
 const App = () => {
+
+  //const [isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin] = useContext(AuthContext);
+
+
+  const authContext = useContext(AuthContext);
+
+
+      const isLoggedIn = authContext.isLoggedIn;
+      const setIsLoggedIn = authContext.setIsLoggedIn;
+      const isAdmin = authContext.isAdmin;
+      const setIsAdmin = authContext.setIsAdmin;
   const { path } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [path]);
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isLogedIn, setIsLogedIn] = useState("false");
-
-  useEffect(() => {
-    setIsAdmin(localStorage.getItem("admin"));
-    setIsLogedIn(localStorage.getItem("logged"));
-  }, []);
+  console.log(isLoggedIn);
 
   return (
     <>
@@ -32,10 +38,8 @@ const App = () => {
         navSignIn="Sign in"
         navProfile="Profile"
         button="Register"
-        isAdmin={isAdmin}
-        isLogedIn={isLogedIn}
         setIsAdmin={setIsAdmin}
-        setIsLogedIn={setIsLogedIn}
+        setIsLoggedIn={setIsLoggedIn}
       />
 
       <main>
@@ -55,7 +59,7 @@ const App = () => {
           <Route
             path="/sign-in"
             element={
-              <SignIn setIsLogedIn={setIsLogedIn} setIsAdmin={setIsAdmin} />
+              <SignIn setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />
             }
           />
           <Route path="/register" element={<Register />} />

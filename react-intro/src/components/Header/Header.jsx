@@ -12,27 +12,26 @@ import {
   HeaderNavHamburger,
 } from "./HeaderStyle";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { VscClose } from "react-icons/vsc";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = ({
   navHome,
   navCourses,
   navSignIn,
   navProfile,
-  isAdmin,
-  isLogedIn,
   setIsAdmin,
-  setIsLogedIn,
+  setIsLoggedIn
 }) => {
   const navigate = useNavigate();
   const [clickMenu, setClickMenu] = useState(false);
 
+  const {isAdmin, isLoggedIn} = useContext(AuthContext);
+
   function LogOut() {
-    setIsAdmin(false);
-    setIsLogedIn("false");
-    localStorage.removeItem("admin");
-    localStorage.removeItem("logged");
+    setIsAdmin(!isAdmin);
+    setIsLoggedIn(!isLoggedIn);
     setClickMenu(false);
   }
 
@@ -46,7 +45,7 @@ const Header = ({
         </Link>
 
         {(() => {
-          if (isLogedIn !== "false") {
+          if (isLoggedIn) {
             if (isAdmin) {
               return (
                 <HeaderNav>
@@ -54,7 +53,7 @@ const Header = ({
                   <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
                   <HeaderLink to={"/profile"}>{navProfile}</HeaderLink>
 
-                  {isLogedIn !== "false" ? (
+                  {isLoggedIn ? (
                     <HeaderLink onClick={LogOut} to={"/"}>
                       Log Out
                     </HeaderLink>
@@ -68,7 +67,7 @@ const Header = ({
                 <HeaderNav>
                   <HeaderLink to={"/"}>{navHome}</HeaderLink>
                   <HeaderLink to={"/courses"}>{navCourses}</HeaderLink>
-                  {isLogedIn !== "false" ? (
+                  {isLoggedIn !== "false" ? (
                     <HeaderLink onClick={LogOut} to={"/"}>
                       Log Out
                     </HeaderLink>
@@ -100,7 +99,7 @@ const Header = ({
 
         {clickMenu &&
           (() => {
-            if (isLogedIn !== "false") {
+            if (isLoggedIn) {
               if (isAdmin) {
                 return (
                   <HeaderNavHamburger>
@@ -124,7 +123,7 @@ const Header = ({
                       {navProfile}
                     </HeaderLinkHamburger>
 
-                    {(isLogedIn) ? (
+                    {(isLoggedIn) ? (
                       <HeaderLinkHamburger onClick={LogOut} to={"/"}>
                         Log Out
                       </HeaderLinkHamburger>
@@ -153,7 +152,7 @@ const Header = ({
                     >
                       {navCourses}
                     </HeaderLinkHamburger>
-                    {isLogedIn ? (
+                    {isLoggedIn ? (
                       <HeaderLinkHamburger onClick={LogOut} to={"/"}>
                         Log Out
                       </HeaderLinkHamburger>
@@ -213,9 +212,7 @@ Header.propTypes = {
   navSignIn: PropTypes.string,
   navProfile: PropTypes.string,
   setIsAdmin: PropTypes.func,
-  setIsLogedIn: PropTypes.func,
-  isAdmin: PropTypes.bool,
-  isLogedIn: PropTypes.string,
+  setIsLoggedIn: PropTypes.func,
 };
 
 export default Header;

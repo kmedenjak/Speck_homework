@@ -45,8 +45,6 @@ const SignIn = ( {setIsAdmin, setIsLogedIn }) => {
             }, 2000);
             setIsAdmin(user.is_admin);
             setIsLogedIn(response.access_token);
-            localStorage.setItem('admin', user.is_admin);
-            localStorage.setItem('logged', response.access_token);
             resetForm();
           } catch (err) {
             setSuccessMessage({
